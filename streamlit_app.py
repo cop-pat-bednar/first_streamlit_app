@@ -52,17 +52,21 @@ fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 streamlit.dataframe(fruityvice_normalized)
 #don't runm anything past here while we fix the code
 
-my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
-my_cur = my_cnx.cursor()
-#my_cur.execute("SELECT CURRENT_USER(), CURRENT_ACCOUNT(), CURRENT_REGION()")
-#my_data_row = my_cur.fetchone()
-#streamlit.text("Hello from Snowflake:")
-#streamlit.text(my_data_row)
-my_cur.execute("use warehouse pc_rivery_wh") 
-my_cur.execute("SELECT * from pc_rivery_db.public.fruit_load_list;")
-my_data_rows = my_cur.fetchall()
 streamlit.header("The Fruit load list contains")
-streamlit.dataframe(my_data_rows)
+#Snowflake-related functions
+def get_fruit_load_list():
+    with my_cur = my_cnx.cursor()
+        my_cur.execute("use warehouse pc_rivery_wh") 
+        my_cur.execute("SELECT * from pc_rivery_db.public.fruit_load_list;")
+        return my_cur.fetchall()
+        #my_data_rows = my_cur.fetchall()
+        
+#add a button to load the fruit
+if streamlit.button ('Get Fruid Load List'):
+    my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+    my_data_rows = get_fruit_load_list()
+    streamlit.dataframe(my_data_rows)
+    
 #Allow the user to add a fruit to the list
 fruit_choice = streamlit.text_input('What fruit would you like to add?','Jackfruit')
 streamlit.write('Thanks for entering', fruit_choice)
