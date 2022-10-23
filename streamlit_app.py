@@ -39,12 +39,12 @@ except URLError as e:
     
 streamlit.write('The user entered', fruit_choice)
 
+streamlit.stop()
 # write your own comment -what does the next line do? 
 fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # output to the screen as a table
 streamlit.dataframe(fruityvice_normalized)
 #don't runm anything past here while we fix the code
-streamlit.stop()
 
 my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
 my_cur = my_cnx.cursor()
