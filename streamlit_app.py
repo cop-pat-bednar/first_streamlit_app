@@ -43,14 +43,14 @@ try:
 except URLError as e:
   streamlit.error()   
 
+#don't run anything past here while we fix the code
 #streamlit.stop()
-streamlit.write('The user entered', fruit_choice)
+#streamlit.write('The user entered', fruit_choice)
 
 # write your own comment -what does the next line do? 
-fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+#fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 # output to the screen as a table
-streamlit.dataframe(fruityvice_normalized)
-#don't runm anything past here while we fix the code
+#streamlit.dataframe(fruityvice_normalized)
 
 streamlit.header("The Fruit load list contains")
 #Snowflake-related functions
