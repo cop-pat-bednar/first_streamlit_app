@@ -58,7 +58,7 @@ streamlit.header("The Fruit load list contains")
 #Snowflake-related functions
 def get_fruit_load_list():
     with my_cnx.cursor() as my_cur:
-        my_cur.execute("use warehouse pc_rivery_wh") 
+        #my_cur.execute("use warehouse pc_rivery_wh") 
         my_cur.execute("SELECT * from pc_rivery_db.public.fruit_load_list;")
         return my_cur.fetchall()
         #my_data_rows = my_cur.fetchall()
@@ -66,6 +66,7 @@ def get_fruit_load_list():
 #add a button to load the fruit
 if streamlit.button ('Get Fruid Load List'):
     my_cnx = snowflake.connector.connect(**streamlit.secrets["snowflake"])
+    my_cur.execute("use warehouse pc_rivery_wh") 
     my_data_rows = get_fruit_load_list()
     streamlit.dataframe(my_data_rows)
 
